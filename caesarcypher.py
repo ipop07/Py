@@ -10,16 +10,13 @@ codephrase = raw_input(prompt)
 #output to file or just print
 fileoutput = raw_input('Do you want to save this to a file? Y/N ')
 
-#if output to file, open file and truncate
-if fileoutput in ('Y', 'y'):
-    target = open('caesarcypher.txt', 'w')
-    target.truncate()
-#function which replaces each character
-#by one with a pre-determined ASCII value offset
+
+#function which replaces each character by one with a pre-determined ASCII value offset
 def caesar(s, n):
     #open string module
     import string
     #for each character in s find the ascii code and offset by n
+    output_string = ""
     for c in s:
         #if character is a letter
         if c in string.ascii_letters:
@@ -27,9 +24,15 @@ def caesar(s, n):
         else:
             #if its not a letter find the ascii code and offset by n
             f = chr(ord(c) + n)
-        print f,
-        #append to the file if fileoutput was yes
-        if fileoutput in ('Y', 'y'):
-            target.write("%s" % f)
+        output_string += f
+    return output_string
+
+#call caesar function and assign return to textoutput variable
+textoutput = caesar(codephrase, int(offset))
+print textoutput
+
+#if output to file, open file and truncate
+if fileoutput in ('Y', 'y'):
+    target = open('caesarcypher.txt', 'w')
+    target.write("%s" % textoutput)
 #call caesar function
-caesar(codephrase, int(offset))
